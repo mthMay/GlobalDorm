@@ -8,7 +8,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class WeatherService {
-    private final RestTemplate restTemplate = new RestTemplate();
 
     public Weather getWeatherData(String lon, String lat, String lang, String unit, String output) {
         String baseUrl = "https://www.7timer.info/bin/civillight.php";
@@ -19,6 +18,7 @@ public class WeatherService {
                 .queryParam("unit", unit)
                 .queryParam("output", output)
                 .toUriString();
+        RestTemplate restTemplate = new RestTemplate();
 
         try {
             String response = restTemplate.getForObject(url, String.class);

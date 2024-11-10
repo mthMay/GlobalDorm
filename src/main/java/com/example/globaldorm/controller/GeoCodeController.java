@@ -21,9 +21,10 @@ public class GeoCodeController {
         if (geocode == null) {
             return "Error retrieving geocode data.";
         }
-
-        return String.format("Postcode: %s\nLatitude: %f\nLongitude: %f",
+        String formattedOutput = String.format("Postcode: %s\nLatitude: %f\nLongitude: %f",
                 geocode.getPostcode(), geocode.getLatitude(), geocode.getLongitude());
+
+        return formattedOutput;
     }
 }
 

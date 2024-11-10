@@ -24,19 +24,15 @@ public class DistanceCalculationController {
 
         Location origin = new Location(originLat, originLon);
         Location destination = new Location(destLat, destLon);
-
-        try {
-            DistanceResponse response = distanceCalculationService.calculateDistance(origin, destination);
-
-            String output = String.format("Distance: %.2f meters\nDuration: %.2f minutes",
-                    response.getDistance(),
-                    response.getDuration() / 60.0);
-
-            return output;
-        } catch (DistanceCalculationService.RouteNotFoundException e) {
-            return "Error: " + e.getMessage();
-        } catch (Exception e) {
-            return "An error occurred while calculating distance.";
+        DistanceResponse response = distanceCalculationService.calculateDistance(origin, destination);
+        if (response == null) {
+            return "Error retrieving distance and duration data.";
         }
+        String formattedOutput = String.format("Distance: %.2f meters\nDuration: %.2f minutes",
+                response.getDistance(),
+                response.getDuration() / 60.0);
+
+        return formattedOutput;
     }
 }
+

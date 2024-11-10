@@ -7,10 +7,10 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class GeoCodeService {
-    private final RestTemplate restTemplate = new RestTemplate();
 
     public GeoCode getGeocodeData(String postcode) {
         String url = "http://api.getthedata.com/postcode/" + postcode;
+        RestTemplate restTemplate = new RestTemplate();
 
         try {
             String response = restTemplate.getForObject(url, String.class);
