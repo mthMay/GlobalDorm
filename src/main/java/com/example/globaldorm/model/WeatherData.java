@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 public class WeatherData {
     private long date;
     private String weather;
-    @SerializedName("temp2m")
-    private Temp2M temp2M;
-    @SerializedName("wind10m_max")
-    private long wind10MMax;
+    private Temp2M temp2m;
+    private long wind10m_max;
 }
