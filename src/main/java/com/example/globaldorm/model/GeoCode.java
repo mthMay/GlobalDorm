@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DistanceResponse {
-    private double distance;
-    private double duration;
+public class GeoCode {
+    private String postcode;
+    private double latitude;
+    private double longitude;
 }

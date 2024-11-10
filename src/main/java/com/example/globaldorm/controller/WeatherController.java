@@ -4,6 +4,7 @@ import com.example.globaldorm.model.Temp2M;
 import com.example.globaldorm.model.Weather;
 import com.example.globaldorm.model.WeatherData;
 import com.example.globaldorm.service.WeatherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,11 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class WeatherController {
-    private final WeatherService weatherService;
-
-    public WeatherController(WeatherService weatherService) {
-        this.weatherService = weatherService;
-    }
+    @Autowired
+    private WeatherService weatherService;
 
     @GetMapping("/weather")
     public String getWeather(@RequestParam String lon,
