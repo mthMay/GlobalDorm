@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/weather")
@@ -22,38 +23,41 @@ public class WeatherController {
 
     @GetMapping("/")
     public String getWeather(@RequestParam String lon,
-                              @RequestParam String lat,
-                              @RequestParam(defaultValue = "en") String lang,
-                              @RequestParam(defaultValue = "metric") String unit,
-                              @RequestParam(defaultValue = "json") String output) {
+                             @RequestParam String lat,
+                             @RequestParam(defaultValue = "en") String lang,
+                             @RequestParam(defaultValue = "metric") String unit,
+                             @RequestParam(defaultValue = "json") String output) {
+
+        // Fetch the weather data from the service (this will check the DB first)
         Weather weather = weatherService.getWeatherData(lon, lat, lang, unit, output);
 
         if (weather == null) {
-            return "Error retrieving weather data.";
+            return "Error retrieving weather data. Please try again later.";
         }
 
+        // Get the current date
+        LocalDate today = LocalDate.now();
+        String todayStr = today.format(DateTimeFormatter.BASIC_ISO_DATE);
+
+        // Get the list of weather data (dataseries)
         List<WeatherData> dataSeries = weather.getDataseries();
-        if (dataSeries != null && !dataSeries.isEmpty()) {
-            WeatherData latestWeatherData = dataSeries.get(dataSeries.size() - 1);
 
-            long dateInt = latestWeatherData.getDate();
-            String weatherCondition = latestWeatherData.getWeather();
-            Temp2M temp2m = latestWeatherData.getTemp2m();
-            long maxTemp = temp2m.getMax();
-            long minTemp = temp2m.getMin();
-            long maxWind = latestWeatherData.getWind10m_max();
+        // Find today's weather data
+        Optional<WeatherData> todaysWeather = dataSeries.stream()
+                .filter(data -> String.valueOf(data.getDate()).equals(todayStr))
+                .findFirst();
 
-            String dateStr = String.valueOf(dateInt);
-            LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.BASIC_ISO_DATE);
-            String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
+        if (todaysWeather.isPresent()) {
+            WeatherData weatherData = todaysWeather.get();
+            String weatherCondition = weatherData.getWeather();
             String formattedOutput = String.format(
                     "Date: %s\nWeather: %s\nMax Temperature: %d\nMin Temperature: %d\nMax Wind Speed: %d",
-                    formattedDate, weatherCondition, maxTemp, minTemp, maxWind);
+                    today, weatherCondition, weatherData.getTemp2m().getMax(),
+                    weatherData.getTemp2m().getMin(), weatherData.getWind10m_max());
 
-            return formattedOutput;
+            return formattedOutput; // Return today's weather data
         } else {
-            return "No weather data available.";
+            return "No weather data available for today.";
         }
     }
 }
