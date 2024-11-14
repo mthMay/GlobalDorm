@@ -15,12 +15,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/weather")
 public class WeatherController {
     @Autowired
     private WeatherService weatherService;
 
-    @GetMapping("/weather")
+    @GetMapping("/")
     public String getWeather(@RequestParam String lon,
                               @RequestParam String lat,
                               @RequestParam(defaultValue = "en") String lang,

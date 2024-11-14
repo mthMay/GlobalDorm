@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/geocode")
 public class GeoCodeController {
     @Autowired
     private GeoCodeService geocodeService;
 
-    @GetMapping("/geocode")
+    @GetMapping("/")
     public String getGeocode(@RequestParam String postcode) {
         GeoCode geocode = geocodeService.getGeocodeData(postcode);
 

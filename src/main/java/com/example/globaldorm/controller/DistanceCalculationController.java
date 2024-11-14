@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/distance")
 public class DistanceCalculationController {
     @Autowired
     private DistanceCalculationService distanceCalculationService;
 
-    @GetMapping("/distance")
+    @GetMapping("/")
     public String getDistance(
             @RequestParam("originLat") double originLat,
             @RequestParam("originLon") double originLon,
