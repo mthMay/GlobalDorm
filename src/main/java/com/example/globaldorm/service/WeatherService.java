@@ -41,6 +41,7 @@ public class WeatherService {
                 // If today's data exists, return it
                 return weather;
             } else {
+                weatherRepository.delete(weather);
                 // If today's data is not found, fetch new data from the API
                 return fetchAndSaveWeatherData(lon, lat, lang, unit, output);
             }
