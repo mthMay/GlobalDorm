@@ -1,6 +1,5 @@
 package com.example.globaldorm.controller;
 
-import com.example.globaldorm.model.Temp2M;
 import com.example.globaldorm.model.Weather;
 import com.example.globaldorm.model.WeatherData;
 import com.example.globaldorm.service.WeatherService;
