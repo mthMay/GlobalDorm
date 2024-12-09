@@ -17,7 +17,8 @@ import java.util.List;
 public class Room {
     @Id
     private String _id;
-    private int id;
+    @Field("room_id")
+    private int roomId;
     private String name;
     private Address address;
     private RoomDetails details;
