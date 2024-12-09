@@ -14,4 +14,12 @@ public class RoomApplicationService {
     public RoomApplication applyForRoom (RoomApplication roomApplication) {
         return roomApplicationRepository.save(roomApplication);
     }
+
+    public void cancelApplication (String applicationId) {
+        if (roomApplicationRepository.existsById(applicationId)) {
+            roomApplicationRepository.deleteById(applicationId);
+        } else {
+            throw new IllegalArgumentException("Application id " + applicationId + " does not exist");
+        }
+    }
 }
