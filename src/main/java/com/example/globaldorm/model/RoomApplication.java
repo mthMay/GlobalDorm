@@ -16,4 +16,5 @@ public class RoomApplication {
     private int roomId;
     private String applicantName;
     private String applicantEmail;
+    private String status = "PENDING";
 }

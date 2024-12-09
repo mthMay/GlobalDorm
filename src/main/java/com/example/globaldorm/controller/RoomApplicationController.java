@@ -19,11 +19,17 @@ public class RoomApplicationController {
         return ResponseEntity.ok(savedApplication);
     }
 
-    @DeleteMapping("/cancel/{id}")
-    public ResponseEntity<String> cancelApplication (@PathVariable String id) {
+    @PatchMapping("/cancel/{id}")
+    public ResponseEntity<RoomApplication> cancelApplication (@PathVariable String id) {
+        RoomApplication cancelledApplication = roomApplicationService.cancelApplication(id);
+        return ResponseEntity.ok(cancelledApplication);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteApplication (@PathVariable String id) {
         try{
-            roomApplicationService.cancelApplication(id);
-            return ResponseEntity.ok("Application with ID " + id + " has been successfully withdrawn.");
+            roomApplicationService.deleteApplication(id);
+            return ResponseEntity.ok("Your application has been successfully deleted.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

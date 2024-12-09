@@ -12,10 +12,20 @@ public class RoomApplicationService {
     private RoomApplicationRepository roomApplicationRepository;
 
     public RoomApplication applyForRoom (RoomApplication roomApplication) {
+        if (roomApplication.getStatus() == null || roomApplication.getStatus().isEmpty()) {
+            roomApplication.setStatus("PENDING");
+        }
         return roomApplicationRepository.save(roomApplication);
     }
 
-    public void cancelApplication (String applicationId) {
+    public RoomApplication cancelApplication(String applicationId) {
+        RoomApplication application = roomApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new IllegalArgumentException("Application with ID " + applicationId + " does not exist."));
+        application.setStatus("CANCELLED");
+        return roomApplicationRepository.save(application);
+    }
+
+    public void deleteApplication (String applicationId) {
         if (roomApplicationRepository.existsById(applicationId)) {
             roomApplicationRepository.deleteById(applicationId);
         } else {
