@@ -4,10 +4,7 @@ import com.example.globaldorm.model.Weather;
 import com.example.globaldorm.model.WeatherData;
 import com.example.globaldorm.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/weather")
 public class WeatherController {
     @Autowired
@@ -48,10 +46,9 @@ public class WeatherController {
 
         if (todaysWeather.isPresent()) {
             WeatherData weatherData = todaysWeather.get();
-            String weatherCondition = weatherData.getWeather();
             String formattedOutput = String.format(
                     "Date: %s\nWeather: %s\nMax Temperature: %d\nMin Temperature: %d\nMax Wind Speed: %d",
-                    today, weatherCondition, weatherData.getTemp2m().getMax(),
+                    today, weatherData.getWeather(), weatherData.getTemp2m().getMax(),
                     weatherData.getTemp2m().getMin(), weatherData.getWind10m_max());
 
             return formattedOutput; // Return today's weather data

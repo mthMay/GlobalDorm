@@ -16,9 +16,7 @@ import java.util.List;
 @Document(collection = "rooms")
 public class Room {
     @Id
-    private String _id;
-    @Field("room_id")
-    private int roomId;
+    private String id;
     private String name;
     private Address address;
     private RoomDetails details;

@@ -3,14 +3,13 @@ package com.example.globaldorm.controller;
 import com.example.globaldorm.model.Room;
 import com.example.globaldorm.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/rooms")
 public class RoomController {
 
@@ -22,9 +21,15 @@ public class RoomController {
         return roomService.getAllRooms();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Room> findRoomById(
+            @PathVariable String id) {
+        return roomService.findRoomsById(id);
+    }
+
     @GetMapping("/search")
-    public List<Room> searchRooms(
+    public List<Room> searchRoomsByCity(
             @RequestParam String city) {
-        return roomService.searchAvailableRooms(city);
+        return roomService.searchRoomsByCity(city);
     }
 }

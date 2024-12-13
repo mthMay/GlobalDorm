@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -17,7 +18,11 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-    public List<Room> searchAvailableRooms(String city) {
+    public List<Room> searchRoomsByCity(String city) {
         return roomRepository.findByAddressCity(city);
+    }
+
+    public Optional<Room> findRoomsById(String id) {
+        return roomRepository.findById(id);
     }
 }
