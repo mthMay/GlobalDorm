@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class RoomApplication {
     @Id
     private String id;
-    private int roomId;
+    private String roomId;
     private String applicantName;
     private String applicantEmail;
     private String status = "PENDING";

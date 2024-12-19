@@ -25,11 +25,17 @@ public class RoomApplicationService {
         return roomApplicationRepository.save(application);
     }
 
-    public void deleteApplication (String applicationId) {
-        if (roomApplicationRepository.existsById(applicationId)) {
-            roomApplicationRepository.deleteById(applicationId);
-        } else {
-            throw new IllegalArgumentException("Application id " + applicationId + " does not exist");
-        }
+    public RoomApplication acceptApplication(String applicationId) {
+        RoomApplication application = roomApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new IllegalArgumentException("Application with ID " + applicationId + " does not exist."));
+        application.setStatus("ACCEPTED");
+        return roomApplicationRepository.save(application);
+    }
+
+    public RoomApplication rejectApplication(String applicationId) {
+        RoomApplication application = roomApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new IllegalArgumentException("Application with ID " + applicationId + " does not exist."));
+        application.setStatus("REJECTED");
+        return roomApplicationRepository.save(application);
     }
 }

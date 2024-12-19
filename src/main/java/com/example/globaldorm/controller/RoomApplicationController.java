@@ -26,13 +26,15 @@ public class RoomApplicationController {
         return ResponseEntity.ok(cancelledApplication);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteApplication (@PathVariable String id) {
-        try{
-            roomApplicationService.deleteApplication(id);
-            return ResponseEntity.ok("Your application has been successfully deleted.");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @PatchMapping("/accept/{id}")
+    public ResponseEntity<RoomApplication> acceptApplication (@PathVariable String id) {
+        RoomApplication acceptedApplication = roomApplicationService.acceptApplication(id);
+        return ResponseEntity.ok(acceptedApplication);
+    }
+
+    @PatchMapping("/reject/{id}")
+    public ResponseEntity<RoomApplication> rejectApplication (@PathVariable String id) {
+        RoomApplication rejectedApplication = roomApplicationService.rejectApplication(id);
+        return ResponseEntity.ok(rejectedApplication);
     }
 }
