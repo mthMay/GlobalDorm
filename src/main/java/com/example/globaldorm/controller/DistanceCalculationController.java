@@ -24,7 +24,7 @@ public class DistanceCalculationController {
         Location destination = new Location(destLat, destLon);
         DistanceResponse response = distanceCalculationService.calculateDistance(origin, destination);
         if (response == null) {
-            return "Error retrieving distance and duration data.";
+            return "Error: Cannot retrieve distance and duration data.";
         }
         String formattedOutput = String.format("Distance: %.2f meters\nDuration: %.2f minutes",
                 response.getDistance(),

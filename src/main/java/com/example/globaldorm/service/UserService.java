@@ -1,5 +1,6 @@
 package com.example.globaldorm.service;
 
+import com.example.globaldorm.model.Room;
 import com.example.globaldorm.model.User;
 import com.example.globaldorm.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -70,4 +72,7 @@ public class UserService {
         }
     }
 
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }

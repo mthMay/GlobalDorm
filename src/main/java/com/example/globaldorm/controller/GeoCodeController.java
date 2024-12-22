@@ -17,7 +17,7 @@ public class GeoCodeController {
         GeoCode geocode = geocodeService.getGeocodeData(postcode);
 
         if (geocode == null) {
-            return "Error retrieving geocode data.";
+            return "Error: Cannot retrieve geocode data.";
         }
         String formattedOutput = String.format("Postcode: %s\nLatitude: %f\nLongitude: %f",
                 geocode.getPostcode(), geocode.getLatitude(), geocode.getLongitude());
