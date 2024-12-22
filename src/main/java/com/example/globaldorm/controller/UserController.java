@@ -1,6 +1,5 @@
 package com.example.globaldorm.controller;
 
-import com.example.globaldorm.model.Room;
 import com.example.globaldorm.model.User;
 import com.example.globaldorm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
