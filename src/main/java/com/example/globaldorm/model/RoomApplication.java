@@ -14,6 +14,6 @@ public class RoomApplication {
     @Id
     private String id;
     private String roomId;
-    private String applicantName;
+    private String applicantId;
     private String status = "PENDING";
 }

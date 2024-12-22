@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/applications")
@@ -36,5 +38,10 @@ public class RoomApplicationController {
     public ResponseEntity<RoomApplication> rejectApplication (@PathVariable String id) {
         RoomApplication rejectedApplication = roomApplicationService.rejectApplication(id);
         return ResponseEntity.ok(rejectedApplication);
+    }
+
+    @GetMapping("/applicant/{applicantId}")
+    public ResponseEntity<List<RoomApplication>> getApplicationsByApplicantId(@PathVariable String applicantId) {
+        return ResponseEntity.ok(roomApplicationService.getApplicationByApplicationId(applicantId));
     }
 }

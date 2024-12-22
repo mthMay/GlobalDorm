@@ -5,6 +5,8 @@ import com.example.globaldorm.repository.RoomApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoomApplicationService {
 
@@ -37,5 +39,9 @@ public class RoomApplicationService {
                 .orElseThrow(() -> new IllegalArgumentException("Application with ID " + applicationId + " does not exist."));
         application.setStatus("REJECTED");
         return roomApplicationRepository.save(application);
+    }
+
+    public List<RoomApplication> getApplicationByApplicationId(String applicantId) {
+        return roomApplicationRepository.findByApplicantId(applicantId);
     }
 }
