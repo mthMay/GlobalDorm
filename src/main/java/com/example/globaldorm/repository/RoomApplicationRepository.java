@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface RoomApplicationRepository extends MongoRepository<RoomApplication, String> {
     List<RoomApplication> findByApplicantId(String applicantId);
+    boolean existsByRoomIdAndApplicantId(String roomId, String applicantId);
 }

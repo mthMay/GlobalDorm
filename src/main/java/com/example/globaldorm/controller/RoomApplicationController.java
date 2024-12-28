@@ -17,9 +17,13 @@ public class RoomApplicationController {
     private RoomApplicationService roomApplicationService;
 
     @PostMapping("/apply")
-    public ResponseEntity<RoomApplication> applyForRoom (@RequestBody RoomApplication roomApplication) {
-        RoomApplication savedApplication = roomApplicationService.applyForRoom(roomApplication);
-        return ResponseEntity.ok(savedApplication);
+    public ResponseEntity<?> applyForRoom (@RequestBody RoomApplication roomApplication) {
+        try {
+            RoomApplication savedApplication = roomApplicationService.applyForRoom(roomApplication);
+            return ResponseEntity.ok(savedApplication);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PatchMapping("/cancel/{id}")

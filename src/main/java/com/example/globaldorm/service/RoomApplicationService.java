@@ -14,6 +14,11 @@ public class RoomApplicationService {
     private RoomApplicationRepository roomApplicationRepository;
 
     public RoomApplication applyForRoom (RoomApplication roomApplication) {
+        boolean applicationExist = roomApplicationRepository.existsByRoomIdAndApplicantId(
+                roomApplication.getRoomId(), roomApplication.getApplicantId());
+        if (applicationExist) {
+            throw new IllegalArgumentException("You have already applied for this room.");
+        }
         if (roomApplication.getStatus() == null || roomApplication.getStatus().isEmpty()) {
             roomApplication.setStatus("PENDING");
         }
