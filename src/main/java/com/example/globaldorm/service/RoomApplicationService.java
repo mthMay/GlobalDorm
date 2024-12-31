@@ -14,8 +14,8 @@ public class RoomApplicationService {
     private RoomApplicationRepository roomApplicationRepository;
 
     public RoomApplication applyForRoom (RoomApplication roomApplication) {
-        boolean applicationExist = roomApplicationRepository.existsByRoomIdAndApplicantId(
-                roomApplication.getRoomId(), roomApplication.getApplicantId());
+        boolean applicationExist = roomApplicationRepository.existsByRoomIdAndApplicantIdAndStatusNot(
+                roomApplication.getRoomId(), roomApplication.getApplicantId(), "CANCELLED");
         if (applicationExist) {
             throw new IllegalArgumentException("You have already applied for this room.");
         }
