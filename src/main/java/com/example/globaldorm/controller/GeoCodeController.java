@@ -3,7 +3,11 @@ package com.example.globaldorm.controller;
 import com.example.globaldorm.model.GeoCode;
 import com.example.globaldorm.service.GeoCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -13,16 +17,17 @@ public class GeoCodeController {
     private GeoCodeService geocodeService;
 
     @GetMapping("/")
-    public String getGeocode(@RequestParam String postcode) {
+    public ResponseEntity<?> getGeocode(@RequestParam String postcode) {
         GeoCode geocode = geocodeService.getGeocodeData(postcode);
 
         if (geocode == null) {
-            return "Error: Cannot retrieve geocode data.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Cannot retrieve geocode data.");
         }
-        String formattedOutput = String.format("Postcode: %s\nLatitude: %f\nLongitude: %f",
-                geocode.getPostcode(), geocode.getLatitude(), geocode.getLongitude());
-
-        return formattedOutput;
+        return ResponseEntity.ok(Map.of(
+                "postcode", geocode.getPostcode(),
+                "latitude", geocode.getLatitude(),
+                "longitude", geocode.getLongitude()
+        ));
     }
 }
 

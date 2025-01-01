@@ -4,11 +4,13 @@ import com.example.globaldorm.model.Weather;
 import com.example.globaldorm.model.WeatherData;
 import com.example.globaldorm.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,17 +21,17 @@ public class WeatherController {
     private WeatherService weatherService;
 
     @GetMapping("/")
-    public String getWeather(@RequestParam String lon,
-                             @RequestParam String lat,
-                             @RequestParam(defaultValue = "en") String lang,
-                             @RequestParam(defaultValue = "metric") String unit,
-                             @RequestParam(defaultValue = "json") String output) {
+    public ResponseEntity<?> getWeather(@RequestParam String lon,
+                                     @RequestParam String lat,
+                                     @RequestParam(defaultValue = "en") String lang,
+                                     @RequestParam(defaultValue = "metric") String unit,
+                                     @RequestParam(defaultValue = "json") String output) {
 
         // Fetch the weather data from the service (this will check the DB first)
         Weather weather = weatherService.getWeatherData(lon, lat, lang, unit, output);
 
         if (weather == null) {
-            return "Error retrieving weather data. Please try again later.";
+            return ResponseEntity.internalServerError().body("Error retrieving weather data.");
         }
 
         // Get the current date
@@ -45,15 +47,16 @@ public class WeatherController {
                 .findFirst();
 
         if (todaysWeather.isPresent()) {
-            WeatherData weatherData = todaysWeather.get();
-            String formattedOutput = String.format(
-                    "Date: %s\nWeather: %s\nMax Temperature: %d\nMin Temperature: %d\nMax Wind Speed: %d",
-                    today, weatherData.getWeather(), weatherData.getTemp2m().getMax(),
-                    weatherData.getTemp2m().getMin(), weatherData.getWind10m_max());
-
-            return formattedOutput; // Return today's weather data
+            WeatherData data = todaysWeather.get();
+            return ResponseEntity.ok(Map.of(
+                    "date", today.toString(),
+                    "maxTemperature", data.getTemp2m().getMax(),
+                    "minTemperature", data.getTemp2m().getMin(),
+                    "weather", data.getWeather(),
+                    "maxWindSpeed", data.getWind10m_max()
+            ));
         } else {
-            return "No weather data available for today.";
+            return ResponseEntity.status(204).body("No weather data available for today.");
         }
     }
 }
