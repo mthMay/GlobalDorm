@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.185:3000"})
 @RequestMapping("/api/weather")
 public class WeatherController {
     @Autowired

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.185:3000"})
 @RequestMapping("/api/distance")
 public class DistanceCalculationController {
     @Autowired
