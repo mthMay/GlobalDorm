@@ -2,7 +2,6 @@ package com.example.globaldorm.controller;
 
 import com.example.globaldorm.model.Room;
 import com.example.globaldorm.service.RoomService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,8 +12,11 @@ import java.util.Optional;
 @RequestMapping("/api/rooms")
 public class RoomController {
 
-    @Autowired
     private RoomService roomService;
+
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
+    }
 
     @GetMapping("/all")
     public List<Room> getAllRooms() {

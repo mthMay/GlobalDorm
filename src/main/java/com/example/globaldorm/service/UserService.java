@@ -2,7 +2,6 @@ package com.example.globaldorm.service;
 
 import com.example.globaldorm.model.User;
 import com.example.globaldorm.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -14,8 +13,11 @@ import java.util.UUID;
 @Service
 public class UserService {
 
-    @Autowired
     private UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     private String generateSalt() {
         byte[] salt = new byte[16];

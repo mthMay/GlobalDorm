@@ -4,7 +4,6 @@ import com.example.globaldorm.model.Weather;
 import com.example.globaldorm.model.WeatherData;
 import com.example.globaldorm.repository.WeatherRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,8 +16,11 @@ import java.util.Optional;
 @Service
 public class WeatherService {
 
-    @Autowired
     private WeatherRepository weatherRepository;
+
+    public WeatherService(WeatherRepository weatherRepository) {
+        this.weatherRepository = weatherRepository;
+    }
 
     public Weather getWeatherData(String lon, String lat, String lang, String unit, String output) {
         // Get today's date in yyyyMMdd format (without hour)

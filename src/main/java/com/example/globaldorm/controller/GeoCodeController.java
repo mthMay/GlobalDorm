@@ -2,7 +2,6 @@ package com.example.globaldorm.controller;
 
 import com.example.globaldorm.model.GeoCode;
 import com.example.globaldorm.service.GeoCodeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,12 @@ import java.util.Map;
 @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.185:3000"})
 @RequestMapping("/api/geocode")
 public class GeoCodeController {
-    @Autowired
+
     private GeoCodeService geocodeService;
+
+    public GeoCodeController(GeoCodeService geocodeService) {
+        this.geocodeService = geocodeService;
+    }
 
     @GetMapping("/")
     public ResponseEntity<?> getGeocode(@RequestParam String postcode) {

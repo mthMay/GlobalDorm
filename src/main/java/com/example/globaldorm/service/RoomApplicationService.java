@@ -2,7 +2,6 @@ package com.example.globaldorm.service;
 
 import com.example.globaldorm.model.RoomApplication;
 import com.example.globaldorm.repository.RoomApplicationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +9,11 @@ import java.util.List;
 @Service
 public class RoomApplicationService {
 
-    @Autowired
     private RoomApplicationRepository roomApplicationRepository;
+
+    public RoomApplicationService(RoomApplicationRepository roomApplicationRepository) {
+        this.roomApplicationRepository = roomApplicationRepository;
+    }
 
     public RoomApplication applyForRoom (RoomApplication roomApplication) {
         boolean applicationExist = roomApplicationRepository.existsByRoomIdAndApplicantIdAndStatusNot(

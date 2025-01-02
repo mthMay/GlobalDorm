@@ -3,7 +3,6 @@ package com.example.globaldorm.controller;
 import com.example.globaldorm.model.Weather;
 import com.example.globaldorm.model.WeatherData;
 import com.example.globaldorm.service.WeatherService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +16,12 @@ import java.util.Optional;
 @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.185:3000"})
 @RequestMapping("/api/weather")
 public class WeatherController {
-    @Autowired
+
     private WeatherService weatherService;
+
+    WeatherController(WeatherService weatherService) {
+        this.weatherService = weatherService;
+    }
 
     @GetMapping("/")
     public ResponseEntity<?> getWeather(@RequestParam String lon,
