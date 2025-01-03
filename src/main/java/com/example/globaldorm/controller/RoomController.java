@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.185:3000"})
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("/api/rooms")
 public class RoomController {
 
