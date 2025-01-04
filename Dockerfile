@@ -5,7 +5,8 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file into the container
-COPY target/GlobalDorm-0.0.1-SNAPSHOT.jar backend.jar
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} backend.jar
 
 # Expose the port that the Spring Boot application runs on
 EXPOSE 8080

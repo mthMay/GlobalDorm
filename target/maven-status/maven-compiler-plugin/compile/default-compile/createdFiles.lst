@@ -7,6 +7,7 @@ com/example/globaldorm/service/GeoCodeService.class
 com/example/globaldorm/model/WeatherData.class
 com/example/globaldorm/repository/RoomRepository.class
 com/example/globaldorm/model/RoomDetails.class
+com/example/globaldorm/config/CorsConfig$1.class
 com/example/globaldorm/controller/RoomApplicationController.class
 com/example/globaldorm/service/WeatherService.class
 com/example/globaldorm/model/User.class
@@ -22,6 +23,7 @@ com/example/globaldorm/repository/WeatherRepository.class
 com/example/globaldorm/model/Room.class
 com/example/globaldorm/GlobalDormApplication.class
 com/example/globaldorm/model/RoomApplication.class
+com/example/globaldorm/config/CorsConfig.class
 com/example/globaldorm/repository/UserRepository.class
 com/example/globaldorm/model/Weather.class
 com/example/globaldorm/service/RoomService.class
