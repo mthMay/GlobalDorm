@@ -23,14 +23,13 @@ public class WeatherController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<?> getWeather(@RequestParam String lon,
-                                     @RequestParam String lat,
+    public ResponseEntity<?> getWeather(@RequestParam String postcode,
                                      @RequestParam(defaultValue = "en") String lang,
                                      @RequestParam(defaultValue = "metric") String unit,
                                      @RequestParam(defaultValue = "json") String output) {
 
         // Fetch the weather data from the service (this will check the DB first)
-        Weather weather = weatherService.getWeatherData(lon, lat, lang, unit, output);
+        Weather weather = weatherService.getWeatherData(postcode, lang, unit, output);
 
         if (weather == null) {
             return ResponseEntity.internalServerError().body("Error retrieving weather data.");

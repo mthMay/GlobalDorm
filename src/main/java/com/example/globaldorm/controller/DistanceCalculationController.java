@@ -21,14 +21,10 @@ public class DistanceCalculationController {
 
     @GetMapping("/")
     public ResponseEntity<?> getDistance(
-            @RequestParam("originLat") double originLat,
-            @RequestParam("originLon") double originLon,
-            @RequestParam("destLat") double destLat,
-            @RequestParam("destLon") double destLon) {
+            @RequestParam("originPostcode") String originPostcode,
+            @RequestParam("destinationPostcode") String destinationPostcode) {
 
-        Location origin = new Location(originLat, originLon);
-        Location destination = new Location(destLat, destLon);
-        DistanceResponse response = distanceCalculationService.calculateDistance(origin, destination);
+        DistanceResponse response = distanceCalculationService.calculateDistance(originPostcode, destinationPostcode);
         if (response == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Cannot retrieve geocode data.");
         }

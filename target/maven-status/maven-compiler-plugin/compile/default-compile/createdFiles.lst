@@ -1,5 +1,7 @@
+com/example/globaldorm/config/CacheConfig.class
 com/example/globaldorm/service/RoomApplicationService.class
 com/example/globaldorm/model/Address.class
+com/example/globaldorm/config/CacheEvictionScheduler.class
 com/example/globaldorm/service/UserService.class
 com/example/globaldorm/repository/RoomApplicationRepository.class
 com/example/globaldorm/controller/DistanceCalculationController.class
@@ -11,7 +13,6 @@ com/example/globaldorm/config/CorsConfig$1.class
 com/example/globaldorm/controller/RoomApplicationController.class
 com/example/globaldorm/service/WeatherService.class
 com/example/globaldorm/model/User.class
-com/example/globaldorm/controller/GeoCodeController.class
 com/example/globaldorm/model/GeoCode.class
 com/example/globaldorm/model/DistanceResponse.class
 com/example/globaldorm/service/DistanceCalculationService.class

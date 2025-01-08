@@ -2,6 +2,9 @@ package com.example.globaldorm.service;
 
 import com.example.globaldorm.model.User;
 import com.example.globaldorm.repository.UserRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;

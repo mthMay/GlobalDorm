@@ -1,9 +1,11 @@
 package com.example.globaldorm.service;
 
+import com.example.globaldorm.model.GeoCode;
 import com.example.globaldorm.model.Weather;
 import com.example.globaldorm.model.WeatherData;
 import com.example.globaldorm.repository.WeatherRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,18 +19,28 @@ import java.util.Optional;
 public class WeatherService {
 
     private WeatherRepository weatherRepository;
+    private final GeoCodeService geoCodeService;
 
-    public WeatherService(WeatherRepository weatherRepository) {
+    public WeatherService(WeatherRepository weatherRepository, GeoCodeService geoCodeService) {
         this.weatherRepository = weatherRepository;
+        this.geoCodeService =  geoCodeService;
     }
 
-    public Weather getWeatherData(String lon, String lat, String lang, String unit, String output) {
+    @Cacheable(value="weather",  key = "#postcode" )
+    public Weather getWeatherData(String postcode, String lang, String unit, String output) {
+        System.out.println("Fetching weather from API for: " + postcode);
+
+        GeoCode geocode = geoCodeService.getGeocodeData(postcode);
+
+        double lat = geocode.getLatitude();
+        double lon = geocode.getLongitude();
+
         // Get today's date in yyyyMMdd format (without hour)
         LocalDate today = LocalDate.now();
         String todayStr = today.format(DateTimeFormatter.BASIC_ISO_DATE); // format as yyyyMMdd
 
         // Query the database using lat and lon (without the init field)
-        Optional<Weather> existingWeather = weatherRepository.findByLatAndLon(lat, lon);
+        Optional<Weather> existingWeather = weatherRepository.findByLatAndLon(Double.toString(lat), Double.toString(lon));
 
         if (existingWeather.isPresent()) {
             Weather weather = existingWeather.get();
@@ -45,11 +57,11 @@ public class WeatherService {
             } else {
                 weatherRepository.delete(weather);
                 // If today's data is not found, fetch new data from the API
-                return fetchAndSaveWeatherData(lon, lat, lang, unit, output);
+                return fetchAndSaveWeatherData(Double.toString(lon), Double.toString(lat), lang, unit, output);
             }
         } else {
             // If no weather data is found, fetch from API
-            return fetchAndSaveWeatherData(lon, lat, lang, unit, output);
+            return fetchAndSaveWeatherData(Double.toString(lon), Double.toString(lat), lang, unit, output);
         }
     }
 

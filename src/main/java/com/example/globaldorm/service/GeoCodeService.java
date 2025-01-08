@@ -2,13 +2,17 @@ package com.example.globaldorm.service;
 
 import com.example.globaldorm.model.GeoCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class GeoCodeService {
 
+    @Cacheable(value = "geocode", key = "#postcode")
     public GeoCode getGeocodeData(String postcode) {
+        System.out.println("Fetching geocode from API for: " + postcode);
+
         String url = "http://api.getthedata.com/postcode/" + postcode;
         RestTemplate restTemplate = new RestTemplate();
 
