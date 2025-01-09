@@ -2,7 +2,6 @@ package com.example.globaldorm.service;
 
 import com.example.globaldorm.model.RoomApplication;
 import com.example.globaldorm.repository.RoomApplicationRepository;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,7 +48,6 @@ public class RoomApplicationService {
         return roomApplicationRepository.save(application);
     }
 
-    @Cacheable("roomApplications")
     public List<RoomApplication> getApplicationByApplicationId(String applicantId) {
         return roomApplicationRepository.findByApplicantId(applicantId);
     }

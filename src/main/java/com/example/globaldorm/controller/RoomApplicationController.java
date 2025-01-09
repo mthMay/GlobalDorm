@@ -27,19 +27,19 @@ public class RoomApplicationController {
         }
     }
 
-    @PatchMapping("/cancel/{id}")
+    @PatchMapping("/cancelled/{id}")
     public ResponseEntity<RoomApplication> cancelApplication (@PathVariable String id) {
         RoomApplication cancelledApplication = roomApplicationService.cancelApplication(id);
         return ResponseEntity.ok(cancelledApplication);
     }
 
-    @PatchMapping("/accept/{id}")
+    @PatchMapping("/accepted/{id}")
     public ResponseEntity<RoomApplication> acceptApplication (@PathVariable String id) {
         RoomApplication acceptedApplication = roomApplicationService.acceptApplication(id);
         return ResponseEntity.ok(acceptedApplication);
     }
 
-    @PatchMapping("/reject/{id}")
+    @PatchMapping("/rejected/{id}")
     public ResponseEntity<RoomApplication> rejectApplication (@PathVariable String id) {
         RoomApplication rejectedApplication = roomApplicationService.rejectApplication(id);
         return ResponseEntity.ok(rejectedApplication);
