@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CacheEvictionScheduler {
+    // line (10-21) modified from https://www.baeldung.com/spring-boot-evict-cache (baeldung, 2024)
     private final CacheManager cacheManager;
 
     public CacheEvictionScheduler(CacheManager cacheManager) {

@@ -19,6 +19,7 @@ public class GeoCodeService {
         try {
             String response = restTemplate.getForObject(url, String.class);
             ObjectMapper objectMapper = new ObjectMapper();
+            // line (22-27) modified from https://www.digitalocean.com/community/tutorials/jackson-json-java-parser-api-example-tutorial (Pankaj, 2022)
             GeoCode geocode = objectMapper.readTree(response)
                     .path("data")
                     .traverse(objectMapper)

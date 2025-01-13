@@ -22,6 +22,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    // methods to generateSalt and hashPassword are modified from
+    // https://stackoverflow.com/questions/18142745/how-do-i-generate-a-salt-in-java-for-salted-hash (stack overflow, 2013)
+    // and Year 2 (System Software Coursework given source code) (Machado, 2023)
+    // and https://stackoverflow.com/questions/5531455/how-to-hash-some-string-with-sha-256-in-java (stack overflow, 2011)
     private String generateSalt() {
         byte[] salt = new byte[16];
         SecureRandom secureRandom = new SecureRandom();

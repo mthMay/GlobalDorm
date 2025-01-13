@@ -16,6 +16,7 @@ public class CorsConfig {
     @Value("${FRONTEND_URL:http://localhost:3000}")
     private String allowedOrigin;
 
+    // code modified from https://spring.io/guides/gs/rest-service-cors (spring, n.d.)
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         logger.info("Configuring CORS with allowed origin: {}", allowedOrigin); // Log the value

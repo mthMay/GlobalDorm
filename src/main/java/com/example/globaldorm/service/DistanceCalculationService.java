@@ -34,6 +34,7 @@ public class DistanceCalculationService {
         try {
             String response = restTemplate.getForObject(url, String.class);
             ObjectMapper objectMapper = new ObjectMapper();
+            // line (38-44) modified from https://www.digitalocean.com/community/tutorials/jackson-json-java-parser-api-example-tutorial (Pankaj, 2022)
             DistanceResponse distanceResponse = objectMapper.readTree(response)
                     .path("features")
                     .get(0)
